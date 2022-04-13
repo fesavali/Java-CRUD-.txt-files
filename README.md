@@ -1,7 +1,6 @@
 # LA City database
 
-LA City database  is software that allows users to give town inputs to a
-system. 
+LA City database  is software that allows users to Create, Read, Update and Update text files using Java iterations. 
 
 
 
@@ -24,5 +23,3 @@ Open a command prompt window and go to the directory where you saved the java pr
   Step 3:  
 Now, type ' java LACity ' to run your program
   
-  Step 4:
-You will be able to see the result printed on the window.
