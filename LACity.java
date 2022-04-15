@@ -128,6 +128,7 @@ private void nearby() {
         String st;
         // Condition holds true till
         String heading = br.readLine();
+        
         while ((st = br.readLine()) != null){
             if(st.indexOf(fname)!=-1) {
                       //System.out.println(s);
@@ -190,20 +191,48 @@ default: System.out.print("\n\n\t\t\t\t\t\tInvalid Choice\n");
 private void orderedPopulation() {
 File file = new File("LATowns.txt");
 ArrayList<String> str = new ArrayList<>();
-try (BufferedReader br= new BufferedReader(new FileReader(file))) {
+ArrayList<String> str1 = new ArrayList<>();
+ArrayList<String> str2 = new ArrayList<>();
+try (BufferedReader br= new BufferedReader(new FileReader(file));
+    BufferedReader br1= new BufferedReader(new FileReader(file));
+    BufferedReader br2= new BufferedReader(new FileReader(file))) {
        // Declaring a string variable
        String st;
+       String st1;
+       String st2;
        // Condition holds true till
        String heading = br.readLine();
        while ((st = br.readLine()) != null)
        str.add(st);
+       String heading1 = br1.readLine();
+       while ((st1 = br1.readLine()) != null)
+       str1.add(st1);
+       String heading2 = br2.readLine();
+       while ((st2 = br2.readLine()) != null)
+       str2.add(st2);
+    //    pre order
+    System.out.println("Contents by population pre order:");
+    System.out.println(heading1); 
+    for (String s : str1) 
+    { 
+        System.out.println(s); 
+    }
     // Print the string
-    System.out.println("Contents ordered by population:");
+    Collections.shuffle(str);
+    System.out.println("Contents by population In order:");
     System.out.println(heading); 
     for (String s : str) 
     { 
         System.out.println(s); 
     }
+     //    post order
+     Collections.sort(str2);
+     System.out.println("Contents by population post order:");
+     System.out.println(heading2); 
+     for (String s : str2) 
+     { 
+         System.out.println(s); 
+     }
     // System.out.println(str);
     br.close();
 } catch (IOException e) {
@@ -214,19 +243,46 @@ menu1();
 private void showCities() {
 File file = new File("LATowns.txt");
 ArrayList<String> str = new ArrayList<>();
-try (BufferedReader br= new BufferedReader(new FileReader(file))) {
+ArrayList<String> str1 = new ArrayList<>();
+ArrayList<String> str2 = new ArrayList<>();
+try (BufferedReader br= new BufferedReader(new FileReader(file));
+        BufferedReader br1= new BufferedReader(new FileReader(file));
+        BufferedReader br2= new BufferedReader(new FileReader(file))) {
        // Declaring a string variable
        String st;
+       String st1;
+       String st2;
        // Condition holds true till
        String heading = br.readLine();
        while ((st = br.readLine()) != null)
        str.add(st);
+       // Condition holds true till
+       String heading1 = br1.readLine();
+       while ((st1 = br1.readLine()) != null)
+       str1.add(st1);
+       String heading2 = br2.readLine();
+       while ((st2 = br2.readLine()) != null)
+       str2.add(st2);
     //    sort string
     Collections.sort(str);
+    Collections.shuffle(str2);
     // Print the string
-    System.out.println("Contents ordered alphabetically:");
+    System.out.println("Contents Pre Order:");
+    System.out.println(heading1); 
+    for (String s : str1) 
+    { 
+        System.out.println(s); 
+    }
+    
+    System.out.println("Contents inorder:");
     System.out.println(heading); 
     for (String s : str) 
+    { 
+        System.out.println(s); 
+    }
+    System.out.println("Contents post order:");
+    System.out.println(heading2); 
+    for (String s : str2) 
     { 
         System.out.println(s); 
     }
@@ -267,7 +323,7 @@ switch(k)
 {
 case '1': search();
 break;
-case '2': search();
+case '2': searchRange();
 break;
 case '3': menu();
 break;
@@ -278,7 +334,58 @@ default: System.out.print("\n\n\t\t\t\t\t\tInvalid Choice\n");
 menu();
 }
 
-private void nametraversal1() {
+private void searchRange() {
+    File file = new File("LATowns.txt");
+    String fname;
+    String sname;
+    // enter filename along with its extension
+    System.out.print("Enter first value in range to Search: ");
+    Scanner sc1 = new Scanner(System.in);
+    fname = sc1.next(); 
+    System.out.print("Enter second value in range to Search: ");
+    sname = sc1.next();
+    ArrayList<String> str = new ArrayList<>();
+    ArrayList<String> str1 = new ArrayList<>(); 
+    try (BufferedReader br= new BufferedReader(new FileReader(file))) {
+        // Declaring a string variable
+        String st;
+        String st1;
+        // Condition holds true till
+        String heading = br.readLine();
+        String nextLine0 = br.readLine();
+        String nextLine2 = br.readLine();
+        while ((st = br.readLine()) != null)
+        if(st.indexOf(fname)!=-1) {
+            String nextLine = br.readLine();
+            String nextLine1 = br.readLine();
+            String nextLine3 = br.readLine();
+            str.add(nextLine0);
+            str.add(nextLine2);
+            str.add(nextLine);
+            str.add(nextLine1);
+            str.add(nextLine3);
+         }
+    // int found = ((CharSequence) str).length();
+     // Print the string
+     System.out.println("Found Cities:");
+     System.out.println(heading); 
+     if(str.isEmpty()){
+        System.out.println("No such City:");
+     }
+     for (String s : str) 
+     { 
+         System.out.println(s); 
+     }
+    //  for (String d : str1) 
+    //  { 
+    //      System.out.println(d); 
+    //  }
+     // System.out.println(str);
+     br.close();
+ } catch (IOException e) {
+     System.out.print("An Error Occured.");
+ }
+       menu();
 }
 void town()
 {
@@ -379,9 +486,18 @@ population = sc1.next();
 
 String line = name+"        "+latitude+"        "+longitude+"       "+population;
 try {
+    BufferedReader br= new BufferedReader(new FileReader(file));
     BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+    String st;
+    // Condition holds true till
+    while ((st = br.readLine()) != null)
+    if(st.indexOf(name)!=-1) {
+        System.out.print("City already Exists");
+    }else{
     bw.append(s + line);
     bw.close();
+    }
+    br.close();
 } catch (IOException e) {
     System.out.println(e.getMessage());
 }
@@ -427,50 +543,65 @@ getCurrentTimeUsingDate();
 }
 
 public static void replaceSelected(String replaceWith, String type) {
+
+    File file = new File("LATowns.txt");
+    String s = System.lineSeparator();
+    String name;
+    String latitude;
+    String longitude;
+    String population;
+    // enter filename along with its extension
+    System.out.print("Enter the Name of City to Update to: ");
+    Scanner sc1 = new Scanner(System.in);
+    name = sc1.next(); 
+    System.out.print("Enter the Latitude to update: ");
+    latitude = sc1.next(); 
+    System.out.print("Enter the Logitude to update: ");
+    longitude= sc1.next();
+    System.out.print("Enter the Pupulation to update: "); 
+    population = sc1.next();
+
+    String line = name+"        "+latitude+"        "+longitude+"       "+population;
     try {
-        String s = System.lineSeparator();
-        String text;
-        // enter filename along with its extension
-        System.out.print("Enter text to replace with: ");
-        Scanner sc1 = new Scanner(System.in);
-        text = sc1.next(); 
-        // input the file content to the StringBuffer "input"
-        BufferedReader file = new BufferedReader(new FileReader("LATowns.txt"));
-        StringBuffer inputBuffer = new StringBuffer();
-        String line;
-
-        while ((line = file.readLine()) != null) {
-            inputBuffer.append(line);
-            inputBuffer.append('\n');
-        }
-        file.close();
-        String inputStr = inputBuffer.toString();
-
-        System.out.println(inputStr); // display the original file for debugging
-
-        // logic to replace lines in the string (could use regex here to be generic)
-        if (type.equals("0")) {
-            inputStr = inputStr.replace(replaceWith + "1", replaceWith + "0"); 
-        } else if (type.equals("1")) {
-            inputStr = inputStr.replace(replaceWith + text, replaceWith + text);
-        }
-
-        // display the new file for debugging
-        System.out.println("----------------------------------\n" + inputStr);
-
-    } catch (Exception e) {
-        System.out.println("Problem reading file.");
+        BufferedReader br= new BufferedReader(new FileReader(file));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+        String st;
+        // Condition holds true till
+        bw.append(s + line);
+        bw.close();
+        br.close();
+    } catch (IOException e) {
+        System.out.println(e.getMessage());
     }
 
 }
 void update()
 {
+    File file = new File("LATowns.txt");
     String name;
     // enter filename along with its extension
     System.out.print("Enter the Name of City to Update: ");
     Scanner sc1 = new Scanner(System.in);
-    name = sc1.next(); 
-    replaceSelected(name, "1"); 
+    name = sc1.next();
+    File tmp = new File("updated"+file);
+    File tmp2 = new File("updated"+file);
+    try (BufferedReader in = new BufferedReader(new FileReader(file));
+         PrintWriter pw = new PrintWriter(new FileWriter(tmp))) {
+            String st;
+            // Condition holds true till
+            while ((st = in.readLine()) != null){
+    
+            if(st.indexOf(name)!=-1) {
+                pw.println(st);
+             }
+            }
+    } catch (IOException e) {
+    System.out.print("An Error Occured.");
+    } 
+    tmp.renameTo(tmp2);
+
+    replaceSelected("you", "1"); 
+
     menu();
 }
 void delete()
@@ -481,7 +612,7 @@ void delete()
     Scanner sc1 = new Scanner(System.in);
     fname = sc1.next(); 
     File file = new File("LATowns.txt");
-    File tmp = new File(file+"deleted");
+    File tmp = new File("deleted"+file);
     File tmp2 = new File("deleted"+file);
     try (BufferedReader in = new BufferedReader(new FileReader(file));
          PrintWriter pw = new PrintWriter(new FileWriter(tmp))) {
@@ -492,9 +623,11 @@ void delete()
             if(st.indexOf(fname)!=-1) {
                 pw.println(st);
              }
+
     } catch (IOException e) {
     System.out.print("An Error Occured.");
     }
+    System.out.print(fname + "  - Deleted successfully find inside deletedLATowns.txt file");
          tmp.renameTo(tmp2);
     
   menu();
