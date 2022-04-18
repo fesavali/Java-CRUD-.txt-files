@@ -141,9 +141,9 @@ private void nearby() {
      // Print the string
      System.out.println("Cities Found Near:");
      System.out.println(heading); 
-     if(str.isEmpty()){
-        System.out.println("No such City:");
-     }
+    //  if(str.isEmpty()){
+    //     System.out.println("No such City:");
+    //  }
      for (String s : str) 
      { 
          System.out.println(s); 
@@ -509,31 +509,29 @@ void distance()
 System.out.print("Enter the town name: ");
 
 String LATowns =scan.next();
-getCurrentTimeUsingDate();  
+// getCurrentTimeUsingDate(); 
+File file = new File("LATowns.txt"); 
 
         try {
             // Assume default encoding.
-            FileWriter fileWriter = new FileWriter("LATowns.txt");
-
-            // Always wrap FileWriter in BufferedWriter.
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            BufferedReader br= new BufferedReader(new FileReader(file));
         
            int lat1,lat2;  
            int lon1,lon2;
            double distance;
            Scanner sc=new Scanner(System.in);
            System.out.println("enter one point i.e., lat1");
-           lat1=sc.nextInt();
+           lat1=(int) sc.nextDouble();
            System.out.println("enter lon1 point");
-           lon1=sc.nextInt();
+           lon1=(int) sc.nextDouble();
            System.out.println("enter lat2 point");
-           lat2=sc.nextInt();
+           lat2=(int) sc.nextDouble();
            System.out.println("enter lon2 point");
-           lon2=sc.nextInt();
+           lon2=(int) sc.nextDouble();
            distance=Math.sqrt((lat2-lat1)*(lat2-lat1) + (lon2-lon1)*(lon2-lon1));
            System.out.println("distancebetween two points is:"+distance);
             // Always close files.
-            bufferedWriter.close();
+            br.close();
         }
         catch(IOException ex) 
     {
